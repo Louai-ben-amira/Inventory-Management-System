@@ -1,0 +1,17 @@
+# Maven / Spring Boot
+target/
+
+# IDE
+.classpath
+.project
+.settings/
+.idea/
+.vscode/
+
+# Logs
+*.log
+logs/
+
+# OS
+Thumbs.db
+Desktop.ini

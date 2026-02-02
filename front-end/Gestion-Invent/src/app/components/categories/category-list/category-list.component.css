@@ -1,0 +1,34 @@
+.category-list {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.category-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin: 10px 0;
+  padding: 15px;
+  transition: background-color 0.3s;
+}
+
+.category-item:hover {
+  background-color: #f1f1f1;
+}
+
+.category-title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.category-description {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.table-dark {
+  background-color: #2c2c2c;
+  color: #f1f1f1;
+
+}

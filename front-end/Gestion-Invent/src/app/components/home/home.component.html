@@ -1,0 +1,134 @@
+<div class="home-root">
+  <div class="home-gradient"></div>
+
+  <div class="home-shell">
+    <!--  Hero -->
+    <section class="home-hero">
+      <div class="home-pill">Inventory · Realtime · Secure</div>
+      <h1>
+        Smart inventory
+        <span>control</span><br />
+        for your business
+      </h1>
+      <p class="home-subtitle">
+        Track products, categories, and stock movements in one clean dashboard.
+        Fast, secure, and role‑based for admins and employees.
+      </p>
+
+      <div class="home-cta-row">
+        <a routerLink="/products" class="btn btn-primary home-cta-main">
+          Go to products
+        </a>
+        <a routerLink="/stock-movements" class="btn btn-outline-light home-cta-secondary">
+          View stock movements
+        </a>
+      </div>
+
+      <div class="home-badges">
+        <div class="home-badge">
+          <span class="home-badge-number">01</span>
+          <div>
+            <h3>Admin</h3>
+            <p>Manage products, categories &amp; users with full control.</p>
+          </div>
+        </div>
+        <div class="home-badge">
+          <span class="home-badge-number">02</span>
+          <div>
+            <h3>Employee</h3>
+            <p>Search products &amp; update stock levels safely.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right: Dashboard preview -->
+    <section class="home-panel">
+      <div class="home-panel-header">
+        <span class="dot dot-red"></span>
+        <span class="dot dot-amber"></span>
+        <span class="dot dot-green"></span>
+        <span class="home-panel-title">Live inventory snapshot</span>
+      </div>
+
+      <div class="home-panel-body">
+        <div class="home-stats-grid">
+          <div class="home-card primary">
+            <div class="home-card-label">Total products</div>
+            <div class="home-card-value">{{ totalProducts }}</div>
+            <div class="home-card-foot">From /products</div>
+          </div>
+          <div class="home-card">
+            <div class="home-card-label">Low stock alerts</div>
+            <div class="home-card-value">{{ lowStockCount }}</div>
+            <div class="home-card-foot">Admin view</div>
+          </div>
+          <div class="home-card">
+            <div class="home-card-label">Today movements</div>
+            <div class="home-card-value">{{ todayMovements }}</div>
+            <div class="home-card-foot">From /stock-movements</div>
+          </div>
+        </div>
+
+        <!-- Search and alerts -->
+        <div class="home-search-block mt-3">
+          <label class="home-search-label">Quick search products</label>
+          <input type="text" class="form-control form-control-sm home-search-input"
+            placeholder="Search by name or category..." [(ngModel)]="searchTerm" />
+        </div>
+
+        <div class="home-lists">
+          <div class="home-list">
+            <div class="home-list-header">
+              <span>Search results</span>
+            </div>
+            <ul class="home-list-body">
+              <li *ngFor="let p of visibleProducts">
+                <span class="home-list-name">{{ p.nom }}</span>
+                <span class="home-list-meta">
+                  Stock: {{ p.quantite }} |
+                  <span *ngIf="p.categorie">Cat: {{ getCategoryDisplayName(p.categorie) }}</span>
+                </span>
+              </li>
+              <li *ngIf="visibleProducts.length === 0" class="home-list-empty">
+                No products match your search.
+              </li>
+            </ul>
+          </div>
+
+          <div class="home-list">
+            <div class="home-list-header">
+              <span>Low stock alerts (≤ {{ lowStockCount ? 5 : 5 }})</span>
+            </div>
+            <ul class="home-list-body">
+              <li *ngFor="let p of lowStockProducts | slice:0:5">
+                <span class="home-list-name">{{ p.nom }}</span>
+                <span class="home-list-meta text-warning">
+                  Only {{ p.quantite }} left
+                </span>
+              </li>
+              <li *ngIf="lowStockProducts.length === 0" class="home-list-empty">
+                All products above threshold.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="home-legend">
+          <div class="legend-item">
+            <span class="legend-dot in"></span>
+            IN stock movement
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot out"></span>
+            OUT stock movement
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot neutral"></span>
+            Stable quantity
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

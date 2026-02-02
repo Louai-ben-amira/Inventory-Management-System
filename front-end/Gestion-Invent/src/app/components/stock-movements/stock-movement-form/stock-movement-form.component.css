@@ -1,0 +1,32 @@
+.stock-movement-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+}
+
+.stock-movement-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.stock-movement-form input,
+.stock-movement-form select {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.stock-movement-form button {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.stock-movement-form button:hover {
+    background-color: #218838;
+}

@@ -1,0 +1,73 @@
+<div class="card">
+  <div class="card-header">
+    <h3>{{ isEditMode ? 'Edit' : 'Create' }} Stock Movement</h3>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="stockMovementForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="ProduitId" class="form-label">Product</label>
+        <select id="ProduitId" class="form-select" formControlName="ProduitId">
+          <option value="">Select a product</option>
+          <option *ngFor="let product of products" [value]="product.id">{{ product.nom }}</option>
+        </select>
+        <div
+          *ngIf="stockMovementForm.get('ProduitId')?.invalid && (stockMovementForm.get('ProduitId')?.dirty || stockMovementForm.get('ProduitId')?.touched)"
+          class="text-danger small mt-1">
+          <div *ngIf="stockMovementForm.get('ProduitId')?.errors?.['required']">Product is required.</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="quantite" class="form-label">Quantite</label>
+        <input type="number" id="quantite" class="form-control" formControlName="quantite" />
+        <div
+          *ngIf="stockMovementForm.get('quantite')?.invalid && (stockMovementForm.get('quantite')?.dirty || stockMovementForm.get('quantite')?.touched)"
+          class="text-danger small mt-1">
+          <div *ngIf="stockMovementForm.get('quantite')?.errors?.['required']">Quantite is required.</div>
+          <div *ngIf="stockMovementForm.get('quantite')?.errors?.['min']">Quantite must be at least 1.</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="type" class="form-label">Type</label>
+        <select id="type" class="form-select" formControlName="type">
+          <option value="">Select type</option>
+          <option value="IN">IN</option>
+          <option value="OUT">OUT</option>
+        </select>
+        <div
+          *ngIf="stockMovementForm.get('type')?.invalid && (stockMovementForm.get('type')?.dirty || stockMovementForm.get('type')?.touched)"
+          class="text-danger small mt-1">
+          <div *ngIf="stockMovementForm.get('type')?.errors?.['required']">Type is required.</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="date" class="form-label">Date</label>
+        <input type="date" id="date" class="form-control" formControlName="date" />
+        <div
+          *ngIf="stockMovementForm.get('date')?.invalid && (stockMovementForm.get('date')?.dirty || stockMovementForm.get('date')?.touched)"
+          class="text-danger small mt-1">
+          <div *ngIf="stockMovementForm.get('date')?.errors?.['required']">Date is required.</div>
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error:</strong> {{ errorMessage }}
+        <button type="button" class="btn-close" (click)="errorMessage = ''" aria-label="Close"></button>
+      </div>
+
+      <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success:</strong> {{ successMessage }}
+        <button type="button" class="btn-close" (click)="successMessage = ''" aria-label="Close"></button>
+      </div>
+
+      <div class="d-flex gap-2 mt-3">
+        <button type="submit" class="btn btn-primary" [disabled]="stockMovementForm.invalid">
+          {{ isEditMode ? 'Update' : 'Create' }} Stock Movement
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

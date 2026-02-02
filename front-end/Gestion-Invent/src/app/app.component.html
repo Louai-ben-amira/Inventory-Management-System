@@ -1,0 +1,54 @@
+<div class="app-container">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold fs-4" routerLink="/home">
+        📦 Inventory Management System
+      </a>
+      <div class="navbar-collapse d-flex justify-content-between" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item" *ngIf="authService.isLoggedIn()">
+            <a class="nav-link" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+              Home
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="authService.isLoggedIn()">
+            <a class="nav-link" routerLink="/products" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact: false}">
+              Products
+            </a>
+          </li>
+          <!-- Categories only for ADMIN -->
+          <li class="nav-item" *ngIf="authService.isLoggedIn() && authService.hasRole('ROLE_ADMIN')">
+            <a class="nav-link" routerLink="/categories" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact: false}">
+              Categories
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="authService.isLoggedIn()">
+            <a class="nav-link" routerLink="/stock-movements" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact: false}">
+              Stock Movements
+            </a>
+          </li>
+        </ul>
+
+        <div class="d-flex align-items-center" *ngIf="authService.isLoggedIn(); else loggedOut">
+          <span class="text-light me-3">
+            {{ authService.getUsername() }} -
+            <ng-container *ngIf="authService.hasRole('ROLE_ADMIN'); else userRole">
+              ADMIN
+            </ng-container>
+            <ng-template #userRole>USER</ng-template>
+          </span>
+          <button class="btn btn-outline-light btn-sm" (click)="logout()">Logout</button>
+        </div>
+        <ng-template #loggedOut>
+          <a class="btn btn-outline-light btn-sm" routerLink="/login">Login</a>
+        </ng-template>
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid py-4">
+    <router-outlet></router-outlet>
+  </div>
+</div>

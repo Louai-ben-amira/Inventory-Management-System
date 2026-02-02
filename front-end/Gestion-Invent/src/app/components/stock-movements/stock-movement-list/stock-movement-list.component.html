@@ -1,0 +1,28 @@
+<div class="stock-movement-list">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Stock Movement List</h2>
+    <button class="btn btn-primary" (click)="addStockMovement()">Add Stock Movement</button>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Product Name</th>
+          <th>Quantite</th>
+          <th>Type</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let movement of stockMovements">
+          <td>{{ movement.id }}</td>
+          <td>{{ movement.produit?.nom}}</td>
+          <td>{{ movement.quantite }}</td>
+          <td>{{ movement.type }}</td>
+          <td>{{ movement.date | date:'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
